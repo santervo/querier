@@ -13,7 +13,7 @@ Define some tables
 Define a query mapping
 
   (def posts-with-author-and-comments
-    (-> posts (join users :as :author) (with comments :as :comments)))
+    (-> posts (with users :as :author :fetch :join) (with comments :as :comments :fetch :query)))
 
 Make queries
 
