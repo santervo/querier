@@ -4,7 +4,31 @@ FIXME: write description
 
 ## Usage
 
-FIXME: write
+Define some tables
+
+  (deftable users :id :login :password)
+  (deftable posts :post :id :title :content (fkey :author_id users))
+  (deftable comments :comment :title :body (fkey :post_id posts))
+
+Define a query mapping
+
+  (def posts-with-author-and-comments
+    (-> posts (join users :as :author) (with comments :as :comments)))
+
+Make queries
+
+  (find-all posts (where (like? :title "clojure")))
+
+Insert objects
+
+  (def user {:login "Foo" :password "Bar"})
+  (insert users user)
+
+Delete objects
+
+  (delete users user)
+  (delete users (where (eq? :login "Foo")))
+
 
 ## License
 
