@@ -20,7 +20,7 @@
   (col tbl col-name))
 
 (defn select-cols [tbl tbl-prefix]
-  (comma-list (map #(str tbl-prefix "." %) (:cols tbl))))
+  (comma-list (map (fn [col-name] (str tbl-prefix "." col-name " AS " tbl-prefix "__" col-name)) (:cols tbl))))
 
 (defn select-expr [tbl tbl-prefix]
   (str "SELECT " (select-cols tbl tbl-prefix)))
